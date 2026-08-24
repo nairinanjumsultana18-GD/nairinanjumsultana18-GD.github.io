@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nairin Anjum Sultana | Portfolio</title>
+  
+  <style>
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #2d3748;
+      background: linear-gradient(135deg, #f5f0eb 0%, #e8dfd8 50%, #dcd3cb 100%);
+      min-height: 100vh;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    header, section, footer {
+      padding: 2.5rem 10%;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 4rem 10% 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Profile Image Styling */
+    .profile-img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #7c9473;
+      box-shadow: 0 4px 15px rgba(124, 148, 115, 0.25);
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-img:hover {
+      transform: scale(1.05);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #1a202c;
+      letter-spacing: -0.5px;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+      color: #52734d;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Section Headings */
+    h2 {
+      font-size: 1.7rem;
+      margin-bottom: 1.5rem;
+      color: #2d3748;
+      border-bottom: 3px solid #7c9473;
+      display: inline-block;
+      padding-bottom: 0.3rem;
+    }
+
+    /* Soft Cards */
+    .content-box {
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      padding: 1.8rem;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Skills Badges */
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      background: #7c9473;
+      color: #ffffff;
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(124, 148, 115, 0.2);
+    }
+
+    .badge.tech {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid #7c9473;
+      color: #52734d;
+      box-shadow: none;
+    }
+
+    /* Filter Buttons */
+    .filter-container {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid #7c9473;
+      color: #52734d;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: #7c9473;
+      color: #ffffff;
+    }
+
+    /* Design Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-card {
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-card.hide {
+      display: none;
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-img {
+      max-width: 90%;
+      max-height: 85vh;
+      border-radius: 8px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Projects Grid */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #7c9473;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      color: #52734d;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #4a5568;
+    }
+
+    /* Platform & Contact Buttons */
+    .contact-container {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .platform-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #52734d;
+      color: #ffffff;
+      padding: 0.75rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(82, 115, 77, 0.2);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .platform-btn:hover {
+      background: #3e583a;
+      transform: translateY(-2px);
+    }
+
+    .platform-btn.secondary {
+      background: rgba(255, 255, 255, 0.8);
+      color: #2d3748;
+      border: 1px solid rgba(0,0,0,0.15);
+      box-shadow: none;
+    }
+
+    .platform-btn.secondary:hover {
+      background: #ffffff;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      color: #718096;
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <img src="my_photo.jpg" alt="Nairin Anjum Sultana" class="profile-img" />
+    <h1>Nairin Anjum Sultana</h1>
+    <p>Graphic Designer | Content Writer | CSE Student</p>
+  </header>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="content-box">
+      <p style="color: #4a5568; line-height: 1.7;">
+        I am a Computer Science and Engineering student with a strong drive for visual communication, digital design, and software systems. I craft commercial asset packages, design graphic material for university programs, and build functional web applications.
+      </p>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <h2>Skills & Expertise</h2>
+    <div class="skills-container">
+      <span class="badge">Graphic Design</span>
+      <span class="badge">Canva</span>
+      <span class="badge">Content Writing</span>
+      
+      <span class="badge tech">HTML</span>
+      <span class="badge tech">CSS</span>
+      <span class="badge tech">C</span>
+      <span class="badge tech">C++</span>
+      <span class="badge tech">DBMS</span>
+    </div>
+  </section>
+
+  <!-- Graphic Design Gallery -->
+  <section id="designs">
+    <h2>Design Portfolio</h2>
+    
+    <!-- Filter Buttons -->
+    <div class="filter-container">
+      <button class="filter-btn active" onclick="filterSelection('all', this)">All Designs</button>
+      <button class="filter-btn" onclick="filterSelection('commerce', this)">E-Commerce & Branding</button>
+      <button class="filter-btn" onclick="filterSelection('academic', this)">Corporate & Academic</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid">
+      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design1.jpg" alt="Cartier Banner Design"></div>
+      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design2.jpg" alt="High Heels Promo Design"></div>
+      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design3.jpg" alt="Lipstick Promo Design"></div>
+      <div class="gallery-card academic" onclick="openLightbox(this)"><img src="Designs/design4.jpg" alt="IELTS Course Design"></div>
+      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design5.jpg" alt="Pistachio Product Banner"></div>
+      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design6.jpg" alt="Handbag Showcase Design"></div>
+      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design7.jpg" alt="Cherry Product Design"></div>
+      <div class="gallery-card academic" onclick="openLightbox(this)"><img src="Designs/design8.jpg" alt="Real Estate Banner"></div>
+      <div class="gallery-card academic" onclick="openLightbox(this)"><img src="Designs/design9.jpg" alt="Retro Chair Banner"></div>
+      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design10.jpg" alt="TIRTIR Cosmetics Banner"></div>
+      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design11.jpg" alt="Oreo Shake Banner"></div>
+      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design12.jpg" alt="PUMA Shoes Banner"></div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="Enlarged View">
+  </div>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <h2>Featured Projects</h2>
+    <div class="project-grid">
+
+      <div class="card">
+        <h3>GizmoSphere</h3>
+        <p>A Database Management System (DBMS) project for an e-commerce website designed to manage product catalogs, customer transactions, and inventory structured back-end data.</p>
+      </div>
+
+      <div class="card">
+        <h3>Campus Asset Hunter</h3>
+        <p>A System Analysis & Design (SAD) platform designed to track, coordinate, and rotate student graphic designers for campus events.</p>
+      </div>
+
+      <div class="card">
+        <h3>ClubNest</h3>
+        <p>A web solution built for university club management to streamline student participation and administrative tasks.</p>
+      </div>
+
+      <div class="card">
+        <h3>Commercial Design Portfolio</h3>
+        <p>A suite of 12 commercial promotional banners crafted for freelance clients and global asset marketplaces.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Platforms & Contact Section -->
+  <section id="contact">
+    <h2>Marketplaces & Contact</h2>
+    <div class="content-box">
+      <p style="color: #4a5568; margin-bottom: 1rem;">Explore my digital design assets on global marketplaces or get in touch for projects:</p>
+      <div class="contact-container">
+        <a href="https://lovepik.com/user/13842843" target="_blank" rel="noopener noreferrer" class="platform-btn">
+          View Lovepik Profile ↗
+        </a>
+        <a href="https://fiverr.com" target="_blank" rel="noopener noreferrer" class="platform-btn secondary">
+          Fiverr Profile ↗
+        </a>
+        <a href="mailto:nairinanjumsultana18@gmail.com" class="platform-btn secondary">
+          ✉ Send Email
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Nairin Anjum Sultana. Built with HTML & CSS.</p>
+  </footer>
+
+  <!-- JavaScript for Filtering and Pop-Up Modal -->
+  <script>
+    /* Category Filter */
+    function filterSelection(category, btn) {
+      const cards = document.querySelectorAll('.gallery-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      cards.forEach(card => {
+        if (category === 'all' || card.classList.contains(category)) {
+          card.classList.remove('hide');
+        } else {
+          card.classList.add('hide');
+        }
+      });
+    }
+
+    /* Lightbox Modal */
+    function openLightbox(card) {
+      const imgSrc = card.querySelector('img').src;
+      document.getElementById('lightbox-img').src = imgSrc;
+      document.getElementById('lightbox').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+  </script>
+
+</body>
+</html>
