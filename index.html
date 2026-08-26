@@ -36,7 +36,6 @@
       align-items: center;
     }
 
-    /* Profile Image Styling */
     .profile-img {
       width: 160px;
       height: 160px;
@@ -65,6 +64,27 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* CV Button */
+    .cv-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #7c9473;
+      color: #ffffff;
+      padding: 0.7rem 1.4rem;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(124, 148, 115, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .cv-btn:hover {
+      background: #52734d;
+      transform: translateY(-2px);
     }
 
     /* Section Headings */
@@ -112,6 +132,50 @@
       box-shadow: none;
     }
 
+    /* Toggle Button for Design Portfolio */
+    .toggle-portfolio-btn {
+      width: 100%;
+      background: #52734d;
+      color: #ffffff;
+      padding: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(82, 115, 77, 0.25);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-portfolio-btn:hover {
+      background: #3e583a;
+    }
+
+    .toggle-portfolio-btn .arrow {
+      transition: transform 0.3s ease;
+    }
+
+    .toggle-portfolio-btn.active .arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Collapsible Container */
+    .design-wrapper {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+      margin-top: 0;
+    }
+
+    .design-wrapper.open {
+      max-height: 3000px;
+      transition: max-height 0.8s ease-in-out;
+      margin-top: 1.5rem;
+    }
+
     /* Filter Buttons */
     .filter-container {
       display: flex;
@@ -152,6 +216,7 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
     }
 
     .gallery-card:hover {
@@ -206,7 +271,7 @@
       cursor: pointer;
     }
 
-    /* Projects Grid */
+    /* Projects Grid & General Cards */
     .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -221,6 +286,7 @@
       padding: 1.5rem;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
       transition: transform 0.3s ease, border-color 0.3s ease;
+      will-change: transform;
     }
 
     .card:hover {
@@ -231,7 +297,14 @@
     .card h3 {
       font-size: 1.25rem;
       color: #52734d;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .card .subtitle {
+      font-size: 0.88rem;
+      color: #718096;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
     }
 
     .card p {
@@ -293,15 +366,20 @@
   <header class="hero">
     <img src="my_photo.jpg" alt="Nairin Anjum Sultana" class="profile-img" />
     <h1>Nairin Anjum Sultana</h1>
-    <p>Graphic Designer | Content Writer | CSE Student</p>
+    <p>Computer Science Student | Graphic Designer | Content Writer</p>
+    
+    <!-- View CV Button targeting CV.pdf -->
+    <a href="CV.pdf" target="_blank" rel="noopener noreferrer" class="cv-btn">
+      📄 View CV ↗
+    </a>
   </header>
 
   <!-- About Section -->
   <section id="about">
-    <h2>About Me</h2>
+    <h2>Professional Summary</h2>
     <div class="content-box">
       <p style="color: #4a5568; line-height: 1.7;">
-        I am a Computer Science and Engineering student with a strong drive for visual communication, digital design, and software systems. I craft commercial asset packages, design graphic material for university programs, and build functional web applications.
+        Driven and creative Computer Science & Engineering undergraduate combining technical programming abilities with practical expertise in graphic design and strategic content writing[cite: 2]. Adept at developing web and software solutions, producing visual brand collateral, and crafting compelling digital copy[cite: 2].
       </p>
     </div>
   </section>
@@ -318,45 +396,106 @@
       <span class="badge tech">CSS</span>
       <span class="badge tech">C</span>
       <span class="badge tech">C++</span>
-      <span class="badge tech">DBMS</span>
     </div>
   </section>
 
-  <!-- Graphic Design Gallery -->
-  <section id="designs">
-    <h2>Design Portfolio</h2>
-    
-    <!-- Filter Buttons -->
-    <div class="filter-container">
-      <button class="filter-btn active" onclick="filterSelection('all', this)">All Designs</button>
-      <button class="filter-btn" onclick="filterSelection('commerce', this)">E-Commerce & Branding</button>
-      <button class="filter-btn" onclick="filterSelection('academic', this)">Corporate & Academic</button>
-    </div>
+  <!-- Education Section -->
+  <section id="education">
+    <h2>Education</h2>
+    <div class="project-grid">
 
-    <!-- Gallery Grid -->
-    <div class="gallery-grid">
-      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design1.jpg" alt="Cartier Banner Design"></div>
-      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design2.jpg" alt="High Heels Promo Design"></div>
-      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design3.jpg" alt="Lipstick Promo Design"></div>
-      <div class="gallery-card academic" onclick="openLightbox(this)"><img src="Designs/design4.jpg" alt="IELTS Course Design"></div>
-      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design5.jpg" alt="Pistachio Product Banner"></div>
-      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design6.jpg" alt="Handbag Showcase Design"></div>
-      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design7.jpg" alt="Cherry Product Design"></div>
-      <div class="gallery-card academic" onclick="openLightbox(this)"><img src="Designs/design8.jpg" alt="Real Estate Banner"></div>
-      <div class="gallery-card academic" onclick="openLightbox(this)"><img src="Designs/design9.jpg" alt="Retro Chair Banner"></div>
-      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design10.jpg" alt="TIRTIR Cosmetics Banner"></div>
-      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design11.jpg" alt="Oreo Shake Banner"></div>
-      <div class="gallery-card commerce" onclick="openLightbox(this)"><img src="Designs/design12.jpg" alt="PUMA Shoes Banner"></div>
+      <div class="card">
+        <h3>B.Sc. in Computer Science & Engineering</h3>
+        <p class="subtitle">CCN University of Science & Technology | July 2024 – Present</p>
+        <p>Pursuing undergraduate studies focusing on computer science fundamentals, programming languages, and web engineering[cite: 2].</p>
+      </div>
+
+      <div class="card">
+        <h3>Higher Secondary Certificate (HSC)</h3>
+        <p class="subtitle">Cumilla Government Women's College | 2020 – 2022</p>
+        <p><strong>GPA:</strong> 4.75 / 5.00[cite: 2]</p>
+      </div>
+
+      <div class="card">
+        <h3>Secondary School Certificate (SSC)</h3>
+        <p class="subtitle">Ibne Taimiya School and College | 2018 – 2020</p>
+        <p><strong>GPA:</strong> 5.00 / 5.00[cite: 2]</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience">
+    <h2>Professional Experience</h2>
+    <div class="content-box">
+      <h3 style="color: #52734d; font-size: 1.25rem;">Campus Ambassador</h3>
+      <p style="color: #718096; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.8rem;">Hasanic English | March 2020 – April 2021</p>
+      <ul style="margin-left: 1.2rem; color: #4a5568;">
+        <li style="margin-bottom: 0.4rem;">Represented Hasanic English on campus, promoting language learning programs and organizing student outreach activities[cite: 2].</li>
+        <li>Coached students in core English language skills, assisting with vocabulary building, grammar, and interactive speaking exercises[cite: 2].</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Honors & Extracurriculars Section -->
+  <section id="honors">
+    <h2>Honors & Extracurricular Activities</h2>
+    <div class="content-box">
+      <ul style="margin-left: 1.2rem; color: #4a5568; line-height: 1.8;">
+        <li>Ranked <strong>15th nationally</strong> in Bangladesh at the World Book Reading Competition organized by the British Council (2017)[cite: 2].</li>
+        <li>Advanced to <strong>Round 3</strong> at the Global Innovation and Leadership Center (GILC) as part of the International Leadership Programme on Education 2.0 (2020)[cite: 2].</li>
+        <li>Awarded academic scholarships by the Welfare Association of Model Institution, Comilla (2015, 2016)[cite: 2].</li>
+        <li>Received merit scholarship from the Islamic Education Society (2016)[cite: 2].</li>
+        <li>Participated in the English Olympiad for four consecutive years (2016–2019)[cite: 2].</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Graphic Design Gallery Section -->
+  <section id="designs">
+    <h2>Design Work</h2>
+    
+    <!-- Button to Show/Hide Graphics Designs -->
+    <button class="toggle-portfolio-btn" id="toggleBtn" onclick="togglePortfolio()">
+      <span>🎨 Show Graphics Design Portfolio</span>
+      <span class="arrow">▼</span>
+    </button>
+
+    <!-- Collapsible Wrapper -->
+    <div class="design-wrapper" id="designWrapper">
+      <!-- Category Filters -->
+      <div class="filter-container">
+        <button class="filter-btn active" onclick="filterSelection('all', this)">All Designs</button>
+        <button class="filter-btn" onclick="filterSelection('commerce', this)">E-Commerce & Branding</button>
+        <button class="filter-btn" onclick="filterSelection('academic', this)">Corporate & Academic</button>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="gallery-grid">
+        <div class="gallery-card commerce" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design1.jpg" alt="Cartier Banner Design" loading="lazy"></div>
+        <div class="gallery-card commerce" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design2.jpg" alt="High Heels Promo Design" loading="lazy"></div>
+        <div class="gallery-card commerce" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design3.jpg" alt="Lipstick Promo Design" loading="lazy"></div>
+        <div class="gallery-card academic" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design4.jpg" alt="IELTS Course Design" loading="lazy"></div>
+        <div class="gallery-card commerce" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design5.jpg" alt="Pistachio Product Banner" loading="lazy"></div>
+        <div class="gallery-card commerce" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design6.jpg" alt="Handbag Showcase Design" loading="lazy"></div>
+        <div class="gallery-card commerce" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design7.jpg" alt="Cherry Product Design" loading="lazy"></div>
+        <div class="gallery-card academic" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design8.jpg" alt="Real Estate Banner" loading="lazy"></div>
+        <div class="gallery-card academic" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design9.jpg" alt="Retro Chair Banner" loading="lazy"></div>
+        <div class="gallery-card commerce" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design10.jpg" alt="TIRTIR Cosmetics Banner" loading="lazy"></div>
+        <div class="gallery-card commerce" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design11.jpg" alt="Oreo Shake Banner" loading="lazy"></div>
+        <div class="gallery-card commerce" tabindex="0" role="button" onclick="openLightbox(this)" onkeydown="if(event.key==='Enter') openLightbox(this)"><img src="Designs/design12.jpg" alt="PUMA Shoes Banner" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
   <!-- Lightbox Modal -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <span class="lightbox-close">&times;</span>
-    <img class="lightbox-img" id="lightbox-img" src="" alt="Enlarged View">
+    <img class="lightbox-img" id="lightbox-img" src="" alt="Enlarged View" onclick="event.stopPropagation()">
   </div>
 
-  <!-- Projects Section -->
+  <!-- Featured Projects Section -->
   <section id="projects">
     <h2>Featured Projects</h2>
     <div class="project-grid">
@@ -397,7 +536,7 @@
           Fiverr Profile ↗
         </a>
         <a href="mailto:nairinanjumsultana18@gmail.com" class="platform-btn secondary">
-          ✉ Send Email
+          ✉ nairinanjumsultana18@gmail.com[cite: 2]
         </a>
       </div>
     </div>
@@ -408,8 +547,24 @@
     <p>© 2026 Nairin Anjum Sultana. Built with HTML & CSS.</p>
   </footer>
 
-  <!-- JavaScript for Filtering and Pop-Up Modal -->
+  <!-- JavaScript -->
   <script>
+    /* Toggle Portfolio Accordion */
+    function togglePortfolio() {
+      const wrapper = document.getElementById('designWrapper');
+      const btn = document.getElementById('toggleBtn');
+      const textSpan = btn.querySelector('span:first-child');
+
+      wrapper.classList.toggle('open');
+      btn.classList.toggle('active');
+
+      if (wrapper.classList.contains('open')) {
+        textSpan.textContent = '🎨 Hide Graphics Design Portfolio';
+      } else {
+        textSpan.textContent = '🎨 Show Graphics Design Portfolio';
+      }
+    }
+
     /* Category Filter */
     function filterSelection(category, btn) {
       const cards = document.querySelectorAll('.gallery-card');
